@@ -1,0 +1,12 @@
+version: '3.11.4'
+
+services:
+  telegram-bot:
+    container_name: telegram-bot
+    build:
+      context: .
+    restart: always
+    ports:
+      - "8084:8084"
+    volumes:
+      - ./:/telegram_bot
