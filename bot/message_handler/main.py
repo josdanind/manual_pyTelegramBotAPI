@@ -1,3 +1,5 @@
+import json
+
 # Bot
 from ..config.bot import bot
 from telebot.types import Message
@@ -16,6 +18,9 @@ from .commands.main import (
     sticker_command,
     dice_command,
     group_command,
+    conversation_command,
+    process_session,
+    check_session,
 )
 
 # Text Handler
@@ -66,6 +71,8 @@ async def command_handler(message: Message):
             await dice_command(message)
         case "/group":
             await group_command(message)
+        case "/conversation":
+            await conversation_command(message)
 
 
 """
@@ -90,6 +97,9 @@ async def handle_filtered_message(message: Message):
     await bot.reply_to(message, "¡Python es genial! 🐍")
 
 
-@bot.message_handler(func=lambda message: True, content_types=["text"])
-async def text_handler(message: Message):
-    await text(message)
+# Añadir un message_handler sin definir la función lo con el decorador
+bot.register_message_handler(
+    callback=process_session,
+    content_types=["text"],
+    func=lambda message: check_session(message),
+)

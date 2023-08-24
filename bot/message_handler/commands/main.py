@@ -12,6 +12,7 @@ from .document import document_command
 from .sticker import sticker_command
 from .dice import dice_command
 from .group import group_command
+from .conversation import conversation_command, process_session, check_session
 
 command_names = os.listdir("bot/message_handler/commands")
 commands = []
